@@ -29,16 +29,20 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  http: ^0.12.0
+  http: ^0.13.0
 
   flutter:
     sdk: flutter
+  api_cache_manager: ^1.0.2
+  snippet_coder_utils: ^1.0.12
 
-
+  #SnippetCoderUtils là gói Tiện ích được xây dựng với Flutter SDK để giúp việc
+  #phát triển Flutter trở nên dễ dàng và thú vị hơn trước
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-
+  flame_audio: ^1.3.3
+  audioplayers: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,8 +54,10 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
-  firebase_core: ^1.4.0
-#  firebase_auth: ^4.2.0
+#  firebase_core: ^1.4.0
+#  firebase_database:
+#  firebase_auth: ^3.3.1
+
 #  google_sign_in: ^5.4.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -71,6 +77,8 @@ flutter:
     - images/levelBackground.jpg
     - images/AppBarBack.jpg
     - images/bbground.jpg
+    - assets/audio/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

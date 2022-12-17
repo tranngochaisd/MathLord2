@@ -1,15 +1,16 @@
 
-
-
-
 import 'package:flutter/material.dart';
+import 'package:snippet_coder_utils/hex_color.dart';
 import 'GameSelectionScreen.dart';
+import 'PlayGameScreen.dart';
+import 'data.dart';
 
 final List<String> entries = <String>['A', 'B', 'C', 'D'];
 final List<int> colorCodes = <int>[600, 500, 100];
 var h;
 var w;
 Color color = Colors.white;
+int indexLevel = 0;
 
 // class CSDL extends StatelessWidget{
 //   CSDL({Key?key}):super(key: key);
@@ -20,37 +21,10 @@ Color color = Colors.white;
 //   return null;
 // }
 
-class Station {
-  int id;
-  String score;
-  String label;
-  IconData icon;
-  double sizeIcon;
-  //BuildContext context;
 
-  Station(this.id, this.score, this.label, this.icon, this.sizeIcon);
-}
 
 class levelScreen extends StatelessWidget {
   levelScreen({super.key});
-  List<Station> stations = [
-    Station(1, '7000', '1', Icons.star, 10),
-    Station(2, '7000', '2', Icons.star, 10),
-    Station(3, '7000', '3', Icons.star, 10),
-    Station(4, '7000', '4', Icons.star, 10),
-    Station(5, '7000', '5', Icons.star, 10),
-    Station(6, '7000', '6', Icons.star, 10),
-    Station(7, '7000', '7', Icons.star, 10),
-    Station(8, '7000', '8', Icons.star, 10),
-    Station(9, '7000', '9', Icons.star, 10),
-    Station(10, '7000', '10', Icons.star, 10),
-    Station(11, '7000', '11', Icons.star, 10),
-    Station(12, '7000', '12', Icons.star, 10),
-    Station(13, '7000', '13', Icons.star, 10),
-    Station(14, '7000', '14', Icons.star, 10),
-    Station(15, '7000', '15', Icons.star, 10),
-    Station(15, '7000', '16', Icons.star, 10),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +105,7 @@ Column _backButtonColumn(Color color, IconData icon, String label, double _size,
           onTap: () {
             print('Hai Hai Hai Hung Hung Hung');
             // Navigator.push(context, route);
+
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => gameSelection()));
           },
@@ -210,23 +185,46 @@ Column _buildButtonColumn(Color color, IconData icon, String label,
   );
 }
 
-gamePlayScreen() {
-}
 
 class StationItem extends StatelessWidget {
   const StationItem({Key? key, required this.item}) : super(key: key);
   final Station item;
   @override
   Widget build(BuildContext context) {
+    Color color1 = Colors.white38;
+    Color color2 = Colors.white38;
+    Color color3 = Colors.white38;
+    Color colorM = Colors.white38;
+  if(item.isOpen == true){
+    colorM = Colors.white;
+    if (item.score >= 7000) {
+      color1 = Colors.white;
+      color2 = Colors.white;
+      color3 = Colors.white;
+    }
+    if (6000 < item.score && item.score < 7000) {
+      color1 = Colors.white;
+      color2 = Colors.white;
+    }
+    if (5000 < item.score && item.score < 6000) {
+      color1 = Colors.white;
+    }
 
+    print('score bang bao nhieu ' + item.score.toString() );
 
+  }
     return Padding(
         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: InkWell(
           onTap: () {
             print('Clicked ${item.label}');
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => gamePlayScreen()));
+            if(item.isOpen == true) {
+              indexLevel =  item.id;
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => gamePlayScreen()));
+            }else{
+              print('Chưa mở khóa màng thứ ${item.label}');
+            }
           },
           splashColor: Colors.indigo[900],
           child: Card(
@@ -243,15 +241,16 @@ class StationItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w400,
-                      color: color,
+                      color: colorM,
                     ),
                   ),
                   Text(
-                    item.score,
+                    item.score.toString(),
+
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w400,
-                      color: color,
+                      color: colorM,
                     ),
                   ),
                   Row(
@@ -261,17 +260,17 @@ class StationItem extends StatelessWidget {
                       Icon(
                         item.icon,
                         size: item.sizeIcon,
-                        color: color,
+                        color: color1,
                       ),
                       Icon(
                         item.icon,
                         size: item.sizeIcon,
-                        color: color,
+                        color: color2,
                       ),
                       Icon(
                         item.icon,
                         size: item.sizeIcon,
-                        color: color,
+                        color: color3,
                       ),
                     ],
                   ),

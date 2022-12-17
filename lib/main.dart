@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'GameSelectionScreen.dart';
+import 'MenuScreen.dart';
+import 'package:flame_audio/flame_audio.dart';
+import 'SingInScreen.dart';
+import 'gameOverScreen.dart';
+import 'holyBattleScreen.dart';
+import 'overBattleP1.dart';
+import 'playMusicScreen.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -15,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
 
       ),
-      home:null,
+      home:menuScreen(),
     );
   }
 }

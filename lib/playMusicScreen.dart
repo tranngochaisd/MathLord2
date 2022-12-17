@@ -1,17 +1,18 @@
-
+//
 
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'data.dart';
 
 import 'GameSelectionScreen.dart';
-import 'playMusicScreen.dart';
 
 var h;
 var w;
-
-class menuScreen extends StatelessWidget {
-  const menuScreen({super.key});
+bool isPlay = false;
+final player = AudioPlayer();
+class musicScreen extends StatelessWidget {
+  const musicScreen({super.key});
   @override
   Widget build(BuildContext context) {
     h = MediaQuery.of(context).size.height;
@@ -29,7 +30,9 @@ class menuScreen extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Flutter layout demo'),
           ),
-          body: ListView(
+          body:
+
+          Column(
             children: [
               Image.asset(
                 'images/bkgMenu.png',
@@ -41,16 +44,16 @@ class menuScreen extends StatelessWidget {
                 height: 40,
               ),
 
-              buttonSection2(context),
-
-
+              _buildButtonColumn(color, Icons.play_arrow, 'PLAY', 50, context),
+// listMusic(),
             ],
-          )),
+
+          )
+    ),
     );
   }
 }
-// Widget build(BuildContext context) {
-// }
+
 
 Column _buildButtonColumn(Color color, IconData icon, String label,
     double _size, BuildContext context) {
@@ -88,33 +91,21 @@ Column _buildButtonColumn(Color color, IconData icon, String label,
               1000.0), //Something large to ensure a circle
           onTap: () {
 
-            print('Hai Hai Hai Hung Hung Hung');
-            switch(label) {
-              case "":{
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => gameSelection()));
-              }
-              break;
-              case "notify":{
+            if(isPlay == false) {
+              print('Đã vào true');
 
-              }
-              break;
-              case "settings":{
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => musicScreen()));
-              }
-              break;
-              case "C":{
-
-              }
-              break;
-              case "D":{
-
-              }
-              break;
+              player.play(AssetSource('audio/ost1.mp3'));
+              isPlay = true;
+              print('isPlay =  ${isPlay}');
+            }else{
+              print('Đã vào false');
+              print('isPlay =  ${isPlay}');
+              player.stop();
+              isPlay = false;
             }
 
-            // Navigator.push(context, route);
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => gameSelection()));
 
           },
         ),
@@ -124,6 +115,7 @@ Column _buildButtonColumn(Color color, IconData icon, String label,
 }
 
 Color color = Colors.white;
+
 
 
 Widget buttonSection2(BuildContext context) {
@@ -168,6 +160,52 @@ Widget buttonSection2(BuildContext context) {
   );
 }
 
+Widget  listMusic(){
+
+  return Expanded(
+   child: ListView.builder(
+  itemCount: ListMusic.length,
+  itemBuilder: (context, index) {
+    return ListView.builder(
+      itemCount: ListMusic.length,
+      itemBuilder: (context, index) {
+        return Card( //                           <-- Card widget
+            child: ListTile(
+            leading: Text((ListMusic[index].id).toString()),
+        title: Text(ListMusic[index].name),
+        )
+        );
+      },
+    );
+  },
+    )
+  );
+}
+
+
+class SelectCard extends StatelessWidget {
+  const SelectCard({Key? key, required this.List}) : super(key: key);
+  final musicList List;
+
+  @override
+  Widget build(BuildContext context) {
+    //final TextStyle textStyle = Theme.of(context).textTheme.display1;
+    return Card(
+        color: Colors.lightGreenAccent,
+        child: Center(child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+             // Expanded(child: Icon(choice.id, size:50.0, color: textStyle.color)),
+              Text(List.name, ),
+            ]
+        ),
+        )
+    );
+  }
+}
+
+
 Widget spaceh = SizedBox(
   height: 10,
 );
@@ -175,15 +213,3 @@ Widget spacew = SizedBox(
   width: 10,
 );
 
-Widget textSection = const Padding(
-  padding: EdgeInsets.all(32),
-  child: Text(
-    'Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese '
-        'Alps. Situated 1,578 meters above sea level, it is one of the '
-        'larger Alpine Lakes. A gondola ride from Kandersteg, followed by a '
-        'half-hour walk through pastures and pine forest, leads you to the '
-        'lake, which warms to 20 degrees Celsius in the summer. Activities '
-        'enjoyed here include rowing, and riding the summer toboggan run.',
-    softWrap: true,
-  ),
-);

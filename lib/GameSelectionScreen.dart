@@ -5,14 +5,24 @@
 import 'package:flutter/material.dart';
 
 import 'MenuScreen.dart';
+import 'data.dart';
+import 'holyBattleScreen.dart';
 import 'levelScreen.dart';
 
 var h;
 var w;
 Color color = Colors.white;
+ List<Station> stations = stations_add;
+
+ int playerOder = 1;
+ int playerScoreP1 = 0;
+int playerScoreP2 = 0;
+
+
 
 class gameSelection extends StatelessWidget {
   const gameSelection({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +61,53 @@ class gameSelection extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                   1000.0), //Something large to ensure a circle
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => levelScreen()));
+
+                switch(label) {
+                  case "addittion":{
+                    stations = stations_add;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => levelScreen()));
+                  }
+                  break;
+                  case "subtract":{
+                    stations = stations_sub;
+                  }
+                  break;
+                  case "add&sub":{
+                    stations = stations_addsub;
+                  }
+                  break;
+                  case "multipt":{
+                    stations = multipt;
+                  }
+                  break;
+                  case "division":{
+                    stations = division;
+                  }
+                  break;
+                  case "challenge":{
+                    playerOder = 0;
+                    playerScoreP1=0;
+                    playerScoreP2 = 0;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>  HolyBattleScreen()));
+                  }
+                  break;
+                  case "Yes&No":{
+                    stations = YesNo;
+                  }
+                  break;
+                  case "rank":{
+
+                  }
+                  break;
+                  case "back":{
+
+                  }
+                  break;
+                }
+
+
               },
             ),
           ),
@@ -89,7 +144,7 @@ class gameSelection extends StatelessWidget {
                   color, Icons.subscript, 'division', 50, context),
               spacew,
               _buildButtonColumn(
-                  color, Icons.subscript, 'division', 50, context),
+                  color, Icons.subscript, 'challenge', 50, context),
             ],
           ),
           spaceh,

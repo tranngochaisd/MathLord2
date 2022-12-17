@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:snippet_coder_utils/hex_color.dart';
-
 import 'GameSelectionScreen.dart';
-import 'data.dart';
 import 'gameOverScreen.dart';
-import 'levelScreen.dart';
+import 'overBattleP1.dart';
+import 'overBattleP2.dart';
 
 var h;
 var w;
@@ -35,7 +32,7 @@ class _value {
   _value(this.id, this.answer, this.istrue);
 }
 
-class gamePlayScreen extends StatefulWidget {
+class HolyBattleScreen extends StatefulWidget {
   @override
   _HomePageState2 createState() => _HomePageState2();
 }
@@ -58,6 +55,7 @@ class StateCheckBox extends StatelessWidget {
     return Transform.scale(
         scale: 0.5,
         child: Checkbox(
+
             checkColor: Colors.white,
             activeColor: colorCheck,
             value: item.istrue,
@@ -164,9 +162,9 @@ Widget apparColumn(Color color, IconData icon, String label, String score,
 Widget BackButtonColumn(Color color, IconData icon, String label, double _size,
     BuildContext context) {
   return Container(
-      //color: Colors.indigo[900],
-      // width: 100,
-      //height: 50,
+    //color: Colors.indigo[900],
+    // width: 100,
+    //height: 50,
       padding: EdgeInsets.fromLTRB(0, 15, 30, 0),
       alignment: Alignment.center,
       child: Ink(
@@ -218,8 +216,8 @@ BoxDecoration myBoxDecoration() {
   );
 }
 
-class _HomePageState2 extends State<gamePlayScreen> {
-  List<_value> Value1 = [
+class _HomePageState2 extends State<HolyBattleScreen> {
+  List<_value> Value2 = [
     _value(1, 0, false),
     _value(2, 0, false),
     _value(3, 0, false),
@@ -235,6 +233,21 @@ class _HomePageState2 extends State<gamePlayScreen> {
     _value(13, 0, false),
     _value(14, 0, false),
     _value(15, 0, false),
+    // _value(16, 0, false),
+    // _value(17, 0, false),
+    // _value(18, 0, false),
+    // _value(19, 0, false),
+    // _value(20, 0, false),
+    // _value(21, 0, false),
+    // _value(22, 0, false),
+    // _value(23, 0, false),
+    // _value(24, 0, false),
+    // _value(25, 0, false),
+    // _value(26, 0, false),
+    // _value(27, 0, false),
+    // _value(28, 0, false),
+    // _value(29, 0, false),
+    // _value(30, 0, false),
   ];
 
   late bool _loading;
@@ -247,7 +260,7 @@ class _HomePageState2 extends State<gamePlayScreen> {
     _loading = false;
     _progressValue = 1.0;
     _loading = !_loading;
-questionNumber=0;
+    questionNumber=0;
     _updateProgress();
     handlerGamePlaye(10, 100, m);
     soTren = m.a;
@@ -281,17 +294,17 @@ questionNumber=0;
         score = score + updateScore;
 
         if(updateScore> 0){
-          Value1[questionNumber].answer = 1;
-          print('Value1.answer' + Value1[questionNumber].answer.toString());
+          Value2[questionNumber].answer = 1;
+          print('Value1.answer' + Value2[questionNumber].answer.toString());
 
         }
         if(updateScore< 0){
-          Value1[questionNumber].answer = -1;
-          print('Value1.answer' + Value1[questionNumber].answer.toString());
+          Value2[questionNumber].answer = -1;
+          print('Value1.answer' + Value2[questionNumber].answer.toString());
         }
         updateScore = 0;
         questionNumber++;
-        for (var i in Value1) {
+        for (var i in Value2) {
           if (i.id == questionNumber) {
             i.istrue = true;
             if (isAnswerTrue == 1) {
@@ -313,9 +326,17 @@ questionNumber=0;
 
         if (questionNumber == 15) {
           print('đã vào gameOver');
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => gameOverScreen()));
-          print('đã chạy gameOver');
+          print('playhoder =' + playerOder.toString() );
+          if(playerOder==1){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => gameOverP1()));
+            print('đã chạy gameOver');
+          }
+          if(playerOder==2){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => gameOverP2()));
+            print('đã chạy gameOver');
+          }
         } else {
           handlerGamePlaye(10, 100, m);
           print('da vao answered = ' + _progressValue.toString());
@@ -335,65 +356,65 @@ questionNumber=0;
 // hàm kết thúc
 
   Widget answerButtonColumn(
-    Color color,
-    String label,
-    double _size,
-    int code,
-  ) {
+      Color color,
+      String label,
+      double _size,
+      int code,
+      ) {
     return Container(
-        //color: Colors.indigo[900],
+      //color: Colors.indigo[900],
         child: Ink(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.indigoAccent, width: 4.0),
-        color: Colors.indigo[900],
-      ),
-      child: InkWell(
-        //padding:EdgeInsets.all(20.0),
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: _size,
-                fontWeight: FontWeight.w400,
-                color: color,
-              ),
-            )
-          ]),
-        ),
-        borderRadius:
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.indigoAccent, width: 4.0),
+            color: Colors.indigo[900],
+          ),
+          child: InkWell(
+            //padding:EdgeInsets.all(20.0),
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: _size,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  ),
+                )
+              ]),
+            ),
+            borderRadius:
             BorderRadius.circular(1000.0), //Something large to ensure a circle
-        onTap: () {
-          if (code != 1) {
-            updateScore = (updateScore - 100) * pointmultiplierfactor;
-            answered = 1;
-            _incrementScore();
+            onTap: () {
+              if (code != 1) {
+                updateScore = (updateScore - 100) * pointmultiplierfactor;
+                answered = 1;
+                _incrementScore();
 
-            print('Dap an sai ' + score.toString());
-          } else {
-            updateScore = (updateScore + 450) * pointmultiplierfactor;
-            answered = 1;
-            _incrementScore();
-            print('Dap an dung ' + score.toString());
-            // setState(() {
-            //   _text = 'The text is updated';
-            //   Navigator.push(context,
-            //       MaterialPageRoute(builder: (context) => gameSelection()));
-            // });
-            // updateScore = score + 450;
-          }
-        },
-      ),
-    ));
+                print('Dap an sai ' + score.toString());
+              } else {
+                updateScore = (updateScore + 450) * pointmultiplierfactor;
+                answered = 1;
+                _incrementScore();
+                print('Dap an dung ' + score.toString());
+                // setState(() {
+                //   _text = 'The text is updated';
+                //   Navigator.push(context,
+                //       MaterialPageRoute(builder: (context) => gameSelection()));
+                // });
+                // updateScore = score + 450;
+              }
+            },
+          ),
+        ));
   }
 
   Padding answer(
-    int A,
-    int B,
-    int C,
-    int x,
-  ) {
+      int A,
+      int B,
+      int C,
+      int x,
+      ) {
     int a = 0, b = 0, c = 0;
     if (x == 1) {
       a = 1;
@@ -405,7 +426,7 @@ questionNumber=0;
       c = 1;
     }
     return Padding(
-        padding: EdgeInsets.fromLTRB(80, 40, 80, 0),
+        padding: EdgeInsets.fromLTRB(80, 40, 80, 100),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -441,7 +462,7 @@ questionNumber=0;
 
     IconData icon = Icons.add;
     String Score = score.toString();
-    String label = '1';
+    String label = playerOder.toString();
 
     double _size = 30;
     //int code;
@@ -524,7 +545,7 @@ questionNumber=0;
                   BackButtonColumn(
                       Colors.black, Icons.exit_to_app, '', 40, context),
                   Column(
-                      //  mainAxisSize: MainAxisSize.min,
+                    //  mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
@@ -535,7 +556,7 @@ questionNumber=0;
                                 alignment: Alignment.center,
                                 width: 125,
                                 child: Text(
-                                  'LEVEL',
+                                  'PLAYER',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -547,7 +568,7 @@ questionNumber=0;
                                 width: 125,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'TYPE',
+                                  'QUESTION',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -559,7 +580,7 @@ questionNumber=0;
                                   width: 150,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'SCORE',
+                                    'SCORE PLAYER ${playerOder}',
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
@@ -598,18 +619,21 @@ questionNumber=0;
                                 ),
                               ),
                               Container(
-                                width: 100,
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  icon,
-                                  size: 50,
-                                  color: color,
-                                ),
-                              ),
+                                  width: 100,
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(0),
+                                  child: Text(
+                                    questionNumber.toString(),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: color,
+                                    ),
+                                  )),
                               Container(
                                   width: 150,
                                   alignment: Alignment.center,
-                                  padding: EdgeInsets.all(10),
+                                  padding: EdgeInsets.all(0),
                                   child: Text(
                                     Score,
                                     style: TextStyle(
@@ -630,7 +654,7 @@ questionNumber=0;
                             minHeight: 8,
                             backgroundColor: Colors.blue,
                             valueColor:
-                                new AlwaysStoppedAnimation<Color>(colorIdigo),
+                            new AlwaysStoppedAnimation<Color>(colorIdigo),
                             value: _progressValue,
                           ),
                         ),
@@ -650,14 +674,15 @@ questionNumber=0;
                 //   style: TextStyle(fontSize: 17.0),
                 // ),
                 Expanded(
-                    //flex: 10,
                     child: GridView.count(
-                  crossAxisCount: 15,
-                  padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
-                  children: Value1.map((item) {
-                    return StateCheckBox(item: item);
-                  }).toList(),
-                )),
+                      crossAxisCount: 15,
+                      padding: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                      children: Value2.map((item) {
+                        return StateCheckBox(item: item);
+                      }).toList(),
+                    )),
+
+
                 // Gọi Hàm gọi câu hỏi
                 question(soTren, soDuoi),
                 // Gọi hàm gọi câu trả lời
@@ -667,9 +692,10 @@ questionNumber=0;
                   Mix.c,
                   Mix.x,
                 ),
-                helpButton(),
+
               ],
-            )),
+            )
+        ),
       ),
     );
   }
@@ -722,59 +748,59 @@ Column _buildButtonColumn(Color color, IconData icon, String label,
 }
 
 Container answerButtonColumn(
-  Color color,
-  String label,
-  double _size,
-  int code,
-  int _incrementScore(),
-  void _updateProgress(),
-) {
+    Color color,
+    String label,
+    double _size,
+    int code,
+    int _incrementScore(),
+    void _updateProgress(),
+    ) {
   return Container(
-      //color: Colors.indigo[900],
+    //color: Colors.indigo[900],
       child: Ink(
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.indigoAccent, width: 4.0),
-      color: Colors.indigo[900],
-    ),
-    child: InkWell(
-      //padding:EdgeInsets.all(20.0),
-      child: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: _size,
-              fontWeight: FontWeight.w400,
-              color: color,
-            ),
-          )
-        ]),
-      ),
-      borderRadius:
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.indigoAccent, width: 4.0),
+          color: Colors.indigo[900],
+        ),
+        child: InkWell(
+          //padding:EdgeInsets.all(20.0),
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: _size,
+                  fontWeight: FontWeight.w400,
+                  color: color,
+                ),
+              )
+            ]),
+          ),
+          borderRadius:
           BorderRadius.circular(1000.0), //Something large to ensure a circle
-      onTap: () {
-        if (code != 1) {
-          answered = 1;
-          updateScore = updateScore - 100;
-          _incrementScore();
-          // print('Dap an sai' + score.toString());
-        } else {
-          answered = 1;
-          updateScore = updateScore + 450;
-          _incrementScore();
-          print('Dap an dung ' + score.toString());
-        }
-      },
-    ),
-  ));
+          onTap: () {
+            if (code != 1) {
+              answered = 1;
+              updateScore = updateScore - 100;
+              _incrementScore();
+              // print('Dap an sai' + score.toString());
+            } else {
+              answered = 1;
+              updateScore = updateScore + 450;
+              _incrementScore();
+              print('Dap an dung ' + score.toString());
+            }
+          },
+        ),
+      ));
 }
 
 Color color2 = Color.fromARGB(255, 25, 34, 133);
 Column question(
-  int A,
-  int B,
-) {
+    int A,
+    int B,
+    ) {
   String a = A.toString();
   String b = B.toString();
   return Column(
@@ -857,203 +883,3 @@ class mix {
 int random(int min, int max) {
   return min + Random().nextInt(max - min);
 }
-
-// class _HomePageState extends State<gamePlayScreen> {
-//   bool valuefirst = false;
-//   bool valuesecond = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Flutter Checkbox Example'),
-//         ),
-//         body: Container(
-//             child: Column(
-//           children: <Widget>[
-//             apparColumn(color, Icons.add, '1', '450'),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.end,
-//               children: <Widget>[
-//                 SizedBox(
-//                   width: 10,
-//                 ),
-//                 Text(
-//                   'PROGRESS',
-//                   style: TextStyle(fontSize: 17.0),
-//                 ),
-
-//                 Transform.scale(
-//                   scale: 0.5,
-//                   child: Checkbox(
-//                     checkColor: Colors.greenAccent,
-//                     activeColor: Colors.red,
-//                     value: this.valuefirst,
-//                     // autofocus: true,
-//                     // focusColor: Colors.black,
-//                     // fillColor: Colors.black,
-//                     onChanged: (bool? value) {
-//                       setState(() {
-//                         this.valuefirst = value!;
-//                       });
-//                     },
-//                     // onChanged: null,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         )),
-//       ),
-//     );
-//   }
-// }
-
-// class _HomePageState2 extends State<gamePlayScreen> {
-//   bool valuefirst = false;
-//   bool valuesecond = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Flutter Checkbox Example'),
-//         ),
-//         body: Padding(
-//             padding: EdgeInsets.all(7),
-//             child: Column(
-//               children: <Widget>[
-//                 apparColumn(color, Icons.add, '1', '450'),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.end,
-//                   children: <Widget>[
-//                     SizedBox(
-//                       width: 10,
-//                     ),
-//                     Text(
-//                       'PROGRESS',
-//                       style: TextStyle(fontSize: 17.0),
-//                     ),
-//                   ],
-//                 ),
-//                 Expanded(
-//                     child: GridView.count(
-//                   crossAxisCount: 12,
-//                   children: stations.map((item) {
-//                     return StateCheckBox(item: item);
-//                   }).toList(),
-//                 )),
-//               ],
-//             )),
-//       ),
-//     );
-//   }
-// }
-
-// class levelScreen extends StatelessWidget {
-//   const levelScreen({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     h = MediaQuery.of(context).size.height;
-//     w = MediaQuery.of(context).size.width;
-
-//     return MaterialApp(
-//       // title: 'Flutter layout Demo',
-//       theme: ThemeData(
-//           //   primarySwatch: Colors.blue,
-//           ),
-//       debugShowCheckedModeBanner: false,
-//       home: Scaffold(
-//           backgroundColor: Colors.white10,
-//           appBar: AppBar(
-//             title: const Text('Flutter layout demo'),
-//           ),
-//           body: Padding(
-//               padding: EdgeInsets.all(7),
-//               child: Column(children: [
-//                 Image.asset(
-//                   'images/bkgMenu.png',
-//                   width: 500,
-//                   height: 240,
-//                   //fit: BoxFit.cover, // can chinh theo kich thuoc
-//                 ),
-//                 Expanded(
-//                     child: ListView.builder(
-//                         padding: const EdgeInsets.all(8),
-//                         itemCount: 12,
-//                         itemBuilder: (BuildContext context, int index) {
-//                           return Container(
-//                             height: 50,
-//                             color: Colors.amber[colorCodes[index]],
-//                             child:
-//                                 Center(child: Text('Entry ${entries[index]}')),
-//                           );
-//                         })),
-//                 // _backButtonColumn(
-//                 //     color, Icons.exit_to_app, 'exit', 50, context),
-//               ]))),
-//     );
-//   }
-// }
-
-// class gamePlayScreen extends StatelessWidget {
-//   const gamePlayScreen({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     h = MediaQuery.of(context).size.height;
-//     w = MediaQuery.of(context).size.width;
-
-//     return MaterialApp(
-//       // title: 'Flutter layout Demo',
-//       theme: ThemeData(
-//           //   primarySwatch: Colors.blue,
-//           ),
-//       debugShowCheckedModeBanner: false,
-//       home: Scaffold(
-//           backgroundColor: Colors.white10,
-//           appBar: AppBar(
-//             title: const Text('Game Play Screen'),
-//           ),
-//           body: ListView(
-//             children: [
-//               apparColumn(color, Icons.add, '1', '450'),
-//               SizedBox(
-//                 height: 40,
-//               ),
-//               // _HomePageState createState() => _HomePageState();
-//             ],
-//           )),
-//     );
-//   }
-// }
-
-// Padding answer(
-//   int A,
-//   int B,
-//   int C,
-//   int x,
-//   int _incrementScore(),
-// ) {
-//   int a = 0, b = 0, c = 0;
-//   if (x == 1) {
-//     a = 1;
-//   }
-//   if (x == 2) {
-//     b = 1;
-//   }
-//   if (x == 3) {
-//     c = 1;
-//   }
-//   return Padding(
-//       padding: EdgeInsets.fromLTRB(80, 100, 80, 120),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           answerButtonColumn(color, A.toString(), 30, a, _incrementScore()),
-//           answerButtonColumn(color, B.toString(), 30, b, _incrementScore()),
-//           answerButtonColumn(color, C.toString(), 30, c, _incrementScore()),
-//         ],
-//       ));
-// }
