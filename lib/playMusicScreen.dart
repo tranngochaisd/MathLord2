@@ -44,8 +44,28 @@ class musicScreen extends StatelessWidget {
                 height: 40,
               ),
 
-              _buildButtonColumn(color, Icons.play_arrow, 'PLAY', 50, context),
-// listMusic(),
+              //_buildButtonColumn(color, Icons.play_arrow, 'PLAY', 50, context),
+              IconButton(
+                icon: Icon(Icons.volume_up),
+                iconSize: 50,
+                color: Colors.indigo[900],
+                tooltip: 'tap to turn it off or on',
+                onPressed: () {
+                  if(isPlay == false) {
+                    print('Đã vào true');
+
+                    player.play(AssetSource('audio/ost1.mp3'));
+                    isPlay = true;
+                    print('isPlay =  ${isPlay}');
+                  }else{
+                    print('Đã vào false');
+                    print('isPlay =  ${isPlay}');
+                    player.stop();
+                    isPlay = false;
+                  }
+                },
+              ),
+
             ],
 
           )

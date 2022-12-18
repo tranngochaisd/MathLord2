@@ -8,6 +8,7 @@ import 'gameOverScreen.dart';
 import 'holyBattleScreen.dart';
 import 'overBattleP1.dart';
 import 'playMusicScreen.dart';
+import 'storeScreen.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
 
       ),
-      home:menuScreen(),
+      home:storeScreen(),
     );
   }
 }
